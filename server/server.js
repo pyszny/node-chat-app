@@ -14,6 +14,16 @@ app.use(express.static(publicPath));        // tells express to use static files
 io.on('connection', (socket) => {           // listens to event and fires callback when event met
     console.log('New user connected');
 
+    socket.emit('newMessage', {
+        from: 'Maciek',
+        text: 'Hej',
+        createdAt: Date.now()
+    });
+
+    socket.on('createMessage', (message) => {
+        console.log('createMessage', message);
+    });
+
     socket.on('disconnect', () => {
         console.log('Client disconnected');
     });
